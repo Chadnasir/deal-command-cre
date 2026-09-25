@@ -1,2 +1,3 @@
-# deal-command-cre
-Deal Command — CRE broker pipeline workspace (sample demo)
+# Deal Command
+
+CRE broker workspace. Open index.html or https://raw.githack.com/Chadnasir/deal-command-cre/main/index.html
