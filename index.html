@@ -1,1 +1,164 @@
-<!DOCTYPE html><html><body><h1>Deal Command loading...</h1><p>Uploading full app next.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deal Command — eXp Commercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="top-row">
+      <div class="brand">
+        <div class="mark">DC</div>
+        <div>
+          <h1>Deal Command</h1>
+          <p>eXp Commercial · Southern OC office workspace</p>
+        </div>
+      </div>
+      <div class="contact">
+        Chad Nasir · (949) 358-0056<br/>
+        sales@realestateca.org · RealEstateCA.org
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Workspace">
+    <button class="tab" role="tab" aria-selected="true" data-tab="pipeline">Pipeline</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="calc">Underwrite</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="inventory">Inventory</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="brief">Tour brief</button>
+  </nav>
+
+  <main class="main">
+    <section id="panel-pipeline" class="panel active" role="tabpanel">
+      <div class="toolbar no-print">
+        <div class="search"><span class="ico">⌕</span>
+          <input id="q" type="search" placeholder="Search deals (/ to focus)" aria-label="Search deals" />
+        </div>
+        <button class="btn btn-ghost" id="btn-export" type="button">Export CSV</button>
+        <button class="btn btn-primary" id="btn-new" type="button">New deal (N)</button>
+      </div>
+      <div class="board" id="board" aria-label="Pipeline board"></div>
+    </section>
+
+    <section id="panel-calc" class="panel" role="tabpanel">
+      <div class="grid2">
+        <div class="box">
+          <h2>Cap rate &amp; cash-on-cash</h2>
+          <p class="sub">Live math — numbers stay on this device only.</p>
+          <div class="form">
+            <label>Purchase price ($)<input id="c-price" type="number" value="4200000" min="0" step="1000" /></label>
+            <label>Annual NOI ($)<input id="c-noi" type="number" value="294000" min="0" step="1000" /></label>
+            <label>Down payment (%)<input id="c-down" type="number" value="35" min="0" max="100" step="1" /></label>
+            <label>Interest rate (%)<input id="c-rate" type="number" value="6.75" min="0" step="0.05" /></label>
+            <label>Amortization (years)<input id="c-amort" type="number" value="30" min="1" max="40" step="1" /></label>
+          </div>
+          <div class="results">
+            <div class="stat"><span>Cap rate</span><b id="o-cap">—</b></div>
+            <div class="stat"><span>Annual debt service</span><b id="o-ads">—</b></div>
+            <div class="stat"><span>Cash needed</span><b id="o-cash">—</b></div>
+            <div class="stat"><span>Cash-on-cash</span><b id="o-coc">—</b></div>
+          </div>
+          <div class="math" id="o-math"></div>
+        </div>
+        <div class="box">
+          <h2>Why this beats Grok Build</h2>
+          <p class="sub">Typical Grok Build apps are generic chat toys. This is broker-shaped.</p>
+          <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
+            <li>eXp navy/orange brand + serif headlines (not Inter/purple)</li>
+            <li>Kanban pipeline with drag stages + localStorage</li>
+            <li>Real underwriting formulas you can audit</li>
+            <li>Inventory filters + CSV export + print brief</li>
+            <li>Keyboard shortcuts and accessible controls</li>
+            <li>Works offline as one HTML file</li>
+          </ul>
+          <p class="pill" style="margin-top:16px">Demo sample data only</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-inventory" class="panel" role="tabpanel">
+      <div class="box">
+        <h2>Suite inventory filter</h2>
+        <p class="sub">Filter sample Southern OC office suites. Not live MLS.</p>
+        <div class="filters no-print">
+          <label>Max rent $/mo <input id="f-rent" type="number" value="4000" min="0" step="100" style="width:110px;margin-left:6px" /></label>
+          <label>Min SF <input id="f-sf" type="number" value="800" min="0" step="50" style="width:100px;margin-left:6px" /></label>
+          <label>City
+            <select id="f-city" style="margin-left:6px">
+              <option value="">All</option>
+              <option>Irvine</option>
+              <option>Tustin</option>
+              <option>Costa Mesa</option>
+              <option>Newport Beach</option>
+              <option>Anaheim</option>
+            </select>
+          </label>
+        </div>
+        <div style="overflow:auto">
+          <table class="table" id="inv-table">
+            <thead><tr><th>Suite</th><th>City</th><th>SF</th><th>$/SF/mo</th><th>Rent/mo</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-brief" class="panel" role="tabpanel">
+      <div class="box">
+        <h2>Tour brief</h2>
+        <p class="sub">Pick a deal, generate a client-ready note, copy or print.</p>
+        <div class="form no-print" style="max-width:420px">
+          <label>Deal
+            <select id="brief-deal"></select>
+          </label>
+          <div class="row">
+            <button class="btn btn-primary" id="btn-gen-brief" type="button">Generate</button>
+            <button class="btn btn-ghost" id="btn-copy-brief" type="button">Copy</button>
+            <button class="btn btn-ghost" id="btn-print" type="button">Print</button>
+          </div>
+        </div>
+        <div class="brief" id="brief-out" aria-live="polite">Select a deal and hit Generate.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div>eXp Commercial · Chad Nasir · Sample demo data — not live listings.</div>
+    <div>Deal Command · built for RealEstateCA.org</div>
+  </footer>
+</div>
+
+<div class="drawer-bg" id="drawer" aria-hidden="true">
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="d-title">
+    <h2 id="d-title">Deal</h2>
+    <div class="form">
+      <label>Address / name<input id="d-name" /></label>
+      <label>City<input id="d-city" /></label>
+      <label>SF<input id="d-sf" type="number" min="0" /></label>
+      <label>Asking $/SF/mo<input id="d-psf" type="number" min="0" step="0.05" /></label>
+      <label>NNN $/SF/yr<input id="d-nnn" type="number" min="0" step="0.1" /></label>
+      <label>Stage
+        <select id="d-stage">
+          <option>Lead</option><option>Touring</option><option>LOI</option><option>Underwriting</option><option>Closed</option>
+        </select>
+      </label>
+      <label>Notes<textarea id="d-notes" rows="4"></textarea></label>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary" id="d-save" type="button">Save</button>
+      <button class="btn btn-ghost" id="d-del" type="button">Delete</button>
+      <button class="btn btn-ghost" id="d-close" type="button">Close</button>
+    </div>
+  </aside>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
